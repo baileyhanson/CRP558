@@ -14,7 +14,9 @@
         crossorigin=""></script>
 
     <script src="../geojson/USA.geojson"></script>
-    <script src="../geojson/AutomatedWeatherObservingSystem.geojson"
+    <script src="../geojson/AutomatedWeatherObservingSystem.geojson"></script>
+    <script src="../geojson/USA_cities.geojson"></script>
+    
    
     <!--  You can link to your geojson file using the file path (like example above) or using the full URL              
     <script src="https://baileyhanson.github.io/CRP558/geojson/USA.geojson"></script>
@@ -46,6 +48,7 @@
         
         L.geoJSON(usa).addTo(map);
         L.geoJSON(weatherObservingSystem).addTo(map);
+        L.geoJSON(cities).addTo(map);
 
         L.marker([42.00185, -93.63474]).addTo(map)
             .bindPopup("My Office Location")
