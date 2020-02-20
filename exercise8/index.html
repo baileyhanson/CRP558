@@ -14,6 +14,12 @@
         crossorigin=""></script>
 
     <script src="../geojson/USA.geojson"></script>
+    <script src="../geojson/AutomatedWeatherObservingSystem.geojson"
+   
+    <!--  You can link to your geojson file using the file path (like example above) or using the full URL              
+    <script src="https://baileyhanson.github.io/CRP558/geojson/USA.geojson"></script>
+    -->
+    
     <style>
         #map {
             width: 700px;
@@ -28,7 +34,7 @@
     <div id='map'></div>
 
     <script>
-        var map = L.map('map').setView([42.0, -93.634], 13);
+        var map = L.map('map').setView([42.0, -93.634], 3);
 
         L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -39,6 +45,7 @@
         }).addTo(map);
         
         L.geoJSON(usa).addTo(map);
+        L.geoJSON(weatherObservingSystem).addTo(map);
 
         L.marker([42.00185, -93.63474]).addTo(map)
             .bindPopup("My Office Location")
