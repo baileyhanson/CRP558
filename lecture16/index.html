@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta name="description" content="LA 458/558 20f geojson to cluster map (basic) 2020">
+
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+
+    <!--Load in Leaflet Marker Cluster required files-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster-src.js"></script>
+
+    <script src="../geojson/USA_cities.geojson"></script>
+
+    <style>
+        #map {
+            width: 700px;
+            height: 500px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="map"></div>
+
+    <script>
+        var map = L.map('map').setView([40.402057, -97.056645], 4);
+
+        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            maxZoom: 18,
+            id: 'mapbox/streets-v11',
+            // This is a unique access token, you must register for your own from https://account.mapbox.com/access-tokens/
+            accessToken: 'pk.eyJ1IjoiYmFoYW5zb24xIiwiYSI6Ijh4M01DV0EifQ.89guWCOKWC9A1vSbA7fiPg'
+        }).addTo(map);
+
+        //Create the cluster markers by first defining an empty cluster group
+        var markers = L.markerClusterGroup();
+
+        var geoJsonLayer = L.geoJson(cities, {
+            onEachFeature: function(feature, layer) {
+                layer.bindPopup('<b>' + feature.properties.name + '</b><br>Population: ' + feature.properties.pop);
+            }
+        });
+        
+        //adds the geojson markers to the clustergroup
+        markers.addLayer(geoJsonLayer);
+        
+        //adds cluster markers to the map
+        map.addLayer(markers);
+        
+        map.fitBounds(markers.getBounds());
+        
+    </script>
+</body>
+
+</html>
